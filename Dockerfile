@@ -1,8 +1,8 @@
 #Build
-FROM eclipse-temurin:21 AS build
+FROM maven AS build
 WORKDIR /app
 COPY . .
-RUN ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 #Run
 FROM tomcat:10.1-jre21
 COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
